@@ -58,8 +58,21 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
       console.log('menu product: ', thisProduct);
+    }
+
+    getElements() {
+      const thisProduct = this;
+
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
     }
 
     renderInMenu() {
@@ -81,11 +94,8 @@
     initAccordion() {
       const thisProduct = this;
 
-      /* [DONE] find the clickable trigger */
-      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-
       /* [DONE] add event listener to clickable trigger */
-      clickableTrigger.addEventListener('click', function (event) {
+      thisProduct.accordionTrigger.addEventListener('click', function (event) {
 
         /* [DONE] prevent default action for event */
         event.preventDefault();
@@ -103,6 +113,65 @@
       });
     }
 
+    initOrderForm() {
+      const thisProduct = this;
+      console.log('initOrderForm');
+
+      thisProduct.form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      console.log('thisProduct.formInputs: ', thisProduct.formInputs);
+      for (let input of thisProduct.formInputs) {
+        input.addEventListener('change', function () {
+          thisProduct.processOrder();
+        });
+      }
+
+      thisProduct.cartButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        thisProduct.processOrder();
+        /* dodaj produkt do koszyka */
+      });
+    }
+
+    processOrder() {
+      const thisProduct = this;
+
+      /* [DONE] convert form to object structure */
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData: ', formData);
+
+      /* [DONE] set price to default price */
+      let price = thisProduct.data.price;
+
+      /* [DONE] for every category in sourceData */
+      for (let paramId in thisProduct.data.params) {
+        console.log('param key: ', paramId);
+        const param = thisProduct.data.params[paramId];
+
+        /* [DONE] for every option in category */
+        for (let optionId in param.options) {
+          const option = param.options[optionId];
+
+          /* [DONE] determine option value */
+          console.log('optionId: ', optionId);
+          console.log('option: ', option);
+
+          /* [DONE] adjust price */
+          if (formData[paramId].includes(optionId) && !option['default']) {
+            price += option['price'];
+          }
+          else if (!formData[paramId].includes(optionId) && option['default']) {
+            price -= option['price'];
+          }
+        }
+      }
+
+      /* [DONE] update price in price element */
+      thisProduct.priceElem.innerHTML = price;
+    }
   }
 
   const app = {
