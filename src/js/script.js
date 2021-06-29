@@ -73,6 +73,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     renderInMenu() {
@@ -153,18 +154,29 @@
 
         /* [DONE] for every option in category */
         for (let optionId in param.options) {
-          const option = param.options[optionId];
 
           /* [DONE] determine option value */
+          const option = param.options[optionId];
           console.log('optionId: ', optionId);
-          console.log('option: ', option);
 
-          /* [DONE] adjust price */
-          if (formData[paramId].includes(optionId) && !option['default']) {
-            price += option['price'];
+          /* [DONE] adjust price and product image */
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          if (formData[paramId].includes(optionId)) {
+            if (optionImage !== null) {
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            }
+            if (!option['default']) {
+              price += option['price'];
+            }
           }
-          else if (!formData[paramId].includes(optionId) && option['default']) {
-            price -= option['price'];
+
+          else if (!formData[paramId].includes(optionId)) {
+            if (optionImage !== null) {
+              optionImage.classList.remove(classNames.menuProduct.imageVisible);
+            }
+            if (option['default']) {
+              price -= option['price'];
+            }
           }
         }
       }
