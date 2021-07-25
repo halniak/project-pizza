@@ -1,19 +1,12 @@
 import app from './app.js';
 
-export const utils = {
-  createDOMFromHTML: function (htmlString) {
-    let div = document.createElement('div');
-    div.innerHTML = htmlString.trim();
-    return div.firstChild;},
+export const utils = {};
 
-
-}; // eslint-disable-line no-unused-vars
-
-/* utils.createDOMFromHTML = function (htmlString) {
+utils.createDOMFromHTML = function (htmlString) {
   let div = document.createElement('div');
   div.innerHTML = htmlString.trim();
   return div.firstChild;
-}; */
+};
 
 utils.createPropIfUndefined = function (obj, key, value = []) {
   if (!obj.hasOwnProperty(key)) {
@@ -57,9 +50,34 @@ utils.convertDataSourceToDbJson = function () {
   const productJson = [];
   for (let key in app.data.products) {
     productJson.push(Object.assign({ id: key }, app.data.products.products[key]));
-  } 
+  }
 
   console.log(JSON.stringify({ product: productJson, order: [] }, null, '  '));
+};
+
+utils.queryParams = function (params) {
+  return Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&');
+};
+utils.numberToHour = function (number) {
+  return (Math.floor(number) % 24) + ':' + (number % 1 * 60 + '').padStart(2, '0');
+};
+
+utils.hourToNumber = function (hour) {
+  const parts = hour.split(':');
+
+  return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+};
+
+utils.dateToStr = function (dateObj) {
+  return dateObj.toISOString().slice(0, 10);
+};
+
+utils.addDays = function (dateStr, days) {
+  const dateObj = new Date(dateStr);
+  dateObj.setDate(dateObj.getDate() + days);
+  return dateObj;
 };
 
 Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {

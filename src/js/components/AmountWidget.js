@@ -1,7 +1,7 @@
 import { settings, select } from './../settings.js';
 
 class AmountWidget {
-  constructor(element) {
+  constructor (element) {
     const thisWidget = this;
 
     thisWidget.getElements(element);
@@ -9,23 +9,26 @@ class AmountWidget {
     thisWidget.initActions();
   }
 
-  getElements(element) {
+  getElements (element) {
     const thisWidget = this;
 
     thisWidget.element = element;
+    console.log(element);
     thisWidget.input = thisWidget.element.querySelector(
-      select.widgets.amount.input);
-    
+      select.widgets.amount.input
+    );
+
     thisWidget.value = settings.amountWidget.defaultValue;
     thisWidget.linkDecrease = thisWidget.element.querySelector(
-      select.widgets.amount.linkDecrease);
-    
+      select.widgets.amount.linkDecrease
+    );
+
     thisWidget.linkIncrease = thisWidget.element.querySelector(
-      select.widgets.amount.linkIncrease);
-    
+      select.widgets.amount.linkIncrease
+    );
   }
 
-  setValue(value) {
+  setValue (value) {
     const thisWidget = this;
     const newValue = parseInt(value);
 
@@ -44,7 +47,7 @@ class AmountWidget {
     thisWidget.input.value = thisWidget.value;
   }
 
-  initActions() {
+  initActions () {
     const thisWidget = this;
 
     thisWidget.input.addEventListener('change', function () {
@@ -62,7 +65,7 @@ class AmountWidget {
     });
   }
 
-  announce() {
+  announce () {
     const thisWidget = this;
 
     const event = new CustomEvent('updated', {

@@ -1,5 +1,5 @@
 import { select, templates, classNames } from './../settings.js';
-import {utils} from './../utils.js';
+import { utils } from './../utils.js';
 import AmountWidget from './AmountWidget.js';
 
 class Product {
@@ -20,25 +20,25 @@ class Product {
 
     thisProduct.accordionTrigger = thisProduct.element.querySelector(
       select.menuProduct.clickable);
-    
+
     thisProduct.form = thisProduct.element.querySelector(
       select.menuProduct.form);
-    
+
     thisProduct.formInputs = thisProduct.form.querySelectorAll(
       select.all.formInputs);
-    
+
     thisProduct.cartButton = thisProduct.element.querySelector(
       select.menuProduct.cartButton);
-    
+
     thisProduct.priceElem = thisProduct.element.querySelector(
       select.menuProduct.priceElem);
-    
+
     thisProduct.imageWrapper = thisProduct.element.querySelector(
       select.menuProduct.imageWrapper);
-    
+
     thisProduct.amountWidgetElem = thisProduct.element.querySelector(
       select.menuProduct.amountWidget);
-    
+
   }
 
   renderInMenu() {
@@ -68,7 +68,7 @@ class Product {
       /* [DONE] find active elements and remove class active if it is not thisProduct.element */
       const activeProduct = document.querySelector(
         select.all.menuProductsActive);
-      
+
       if (activeProduct !== null && activeProduct !== thisProduct.element) {
         //console.log('activeProduct: ', activeProduct);
         activeProduct.classList.remove('active');
@@ -131,7 +131,7 @@ class Product {
         /* [DONE] adjust price and product image */
         const optionImage = thisProduct.imageWrapper.querySelector(
           '.' + paramId + '-' + optionId);
-        
+
         if (formData[paramId].includes(optionId)) {
           if (optionImage !== null) {
             optionImage.classList.add(classNames.menuProduct.imageVisible);
