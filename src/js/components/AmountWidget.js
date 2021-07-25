@@ -13,7 +13,6 @@ class AmountWidget {
     const thisWidget = this;
 
     thisWidget.element = element;
-    console.log(element);
     thisWidget.input = thisWidget.element.querySelector(
       select.widgets.amount.input
     );
