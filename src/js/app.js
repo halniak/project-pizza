@@ -1,9 +1,16 @@
+import { settings, select } from './settings.js';
+import Product from './components/Product.js';
+import Cart from  './components/Cart.js';
+
 const app = {
   initMenu: function () {
     const thisApp = this;
 
     for (const productData in thisApp.data.products) {
-      new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+      new Product(
+        thisApp.data.products[productData].id,
+        thisApp.data.products[productData]
+      );
     }
   },
 
@@ -15,37 +22,37 @@ const app = {
 
     fetch(url)
       .then(function (rawResponse) {
-        console.log('rawResponse: ', rawResponse);
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
-        console.log('parsedResponse: ', parsedResponse);
-
         thisApp.data.products = parsedResponse;
         thisApp.initMenu();
       });
 
     console.log('thisApp.data', JSON.stringify(thisApp.data));
+
   },
 
   initCart: function () {
     const thisApp = this;
-
     const cartElem = document.querySelector(select.containerOf.cart);
 
     thisApp.cart = new Cart(cartElem);
+    thisApp.productList = document.querySelector(select.containerOf.menu);
+
+    thisApp.productList.addEventListener('add-to-cart', function (event) {
+      thisApp.cart.add(event.detail.product);
+      
+    });
   },
 
   init: function () {
     const thisApp = this;
-    //console.log('*** App starting ***');
-    //console.log('thisApp:', thisApp);
-    //console.log('classNames:', classNames);
-    //console.log('settings:', settings);
-    //console.log('templates:', templates);
     thisApp.initData();
     thisApp.initCart();
   },
 };
 
 app.init();
+
+export default app;

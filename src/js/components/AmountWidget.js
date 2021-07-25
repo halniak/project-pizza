@@ -1,63 +1,75 @@
+import { settings, select } from './../settings.js';
+
 class AmountWidget {
-    constructor(element) {
-        const thisWidget = this;
+  constructor(element) {
+    const thisWidget = this;
 
-        thisWidget.getElements(element);
-        thisWidget.setValue(thisWidget.input.value);
-        thisWidget.initActions();
+    thisWidget.getElements(element);
+    thisWidget.setValue(thisWidget.input.value);
+    thisWidget.initActions();
+  }
+
+  getElements(element) {
+    const thisWidget = this;
+
+    thisWidget.element = element;
+    thisWidget.input = thisWidget.element.querySelector(
+      select.widgets.amount.input);
+    
+    thisWidget.value = settings.amountWidget.defaultValue;
+    thisWidget.linkDecrease = thisWidget.element.querySelector(
+      select.widgets.amount.linkDecrease);
+    
+    thisWidget.linkIncrease = thisWidget.element.querySelector(
+      select.widgets.amount.linkIncrease);
+    
+  }
+
+  setValue(value) {
+    const thisWidget = this;
+    const newValue = parseInt(value);
+
+    /* [DONE] add validation */
+    if (newValue !== thisWidget.value && !isNaN(newValue)) {
+      if (
+        newValue >= settings.amountWidget.defaultMin &&
+        newValue <= settings.amountWidget.defaultMax
+      ) {
+        thisWidget.value = newValue;
+
+        thisWidget.announce();
+      }
     }
 
-    getElements(element) {
-        const thisWidget = this;
+    thisWidget.input.value = thisWidget.value;
+  }
 
-        thisWidget.element = element;
-        thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-        thisWidget.value = settings.amountWidget.defaultValue;
-        thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
-        thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-    }
+  initActions() {
+    const thisWidget = this;
 
-    setValue(value) {
-        const thisWidget = this;
-        const newValue = parseInt(value);
+    thisWidget.input.addEventListener('change', function () {
+      thisWidget.setValue(thisWidget.input.value);
+    });
 
-        /* [DONE] add validation */
-        if (newValue !== thisWidget.value && !isNaN(newValue)) {
-            if (newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax) {
-                thisWidget.value = newValue;
+    thisWidget.linkDecrease.addEventListener('click', function (event) {
+      event.preventDefault;
+      thisWidget.setValue(parseInt(thisWidget.input.value) - 1);
+    });
 
-                thisWidget.announce();
-            }
-        }
+    thisWidget.linkIncrease.addEventListener('click', function (event) {
+      event.preventDefault;
+      thisWidget.setValue(parseInt(thisWidget.input.value) + 1);
+    });
+  }
 
-        thisWidget.input.value = thisWidget.value;
-    }
+  announce() {
+    const thisWidget = this;
 
-    initActions() {
-        const thisWidget = this;
-
-        thisWidget.input.addEventListener('change', function () {
-            thisWidget.setValue(thisWidget.input.value);
-        });
-
-        thisWidget.linkDecrease.addEventListener('click', function (event) {
-            event.preventDefault;
-            thisWidget.setValue(parseInt(thisWidget.input.value) - 1);
-        });
-
-        thisWidget.linkIncrease.addEventListener('click', function (event) {
-            event.preventDefault;
-            thisWidget.setValue(parseInt(thisWidget.input.value) + 1);
-        });
-    }
-
-    announce() {
-        const thisWidget = this;
-
-        const event = new CustomEvent('updated', {
-            bubbles: true
-        });
-        thisWidget.element.dispatchEvent(event);
-
-    }
+    const event = new CustomEvent('updated', {
+      bubbles: true,
+    });
+    thisWidget.element.dispatchEvent(event);
+  }
 }
+
+export default AmountWidget;
