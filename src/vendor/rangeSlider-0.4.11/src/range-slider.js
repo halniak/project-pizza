@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import * as func from './utils/functions.js';
 import * as dom from './utils/dom.js';
 import './range-slider.min.css';
+=======
+import * as func from './utils/functions';
+import * as dom from './utils/dom';
+import './range-slider.css';
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
 
 const newLineAndTabRegexp = new RegExp('/[\\n\\t]/', 'g');
 const MAX_SET_BY_DEFAULT = 100;

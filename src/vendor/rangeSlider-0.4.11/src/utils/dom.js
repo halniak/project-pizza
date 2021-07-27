@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import * as func from './functions.js';
+=======
+import * as func from './functions';
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
 
 const EVENT_LISTENER_LIST = 'eventListenerList';
 
@@ -28,8 +32,12 @@ export const detectIE = () => {
 };
 
 const ieVersion = detectIE();
+<<<<<<< HEAD
 const eventCaptureParams =
   window.PointerEvent && !ieVersion ? { passive: false } : false;
+=======
+const eventCaptureParams = window.PointerEvent && !ieVersion ? {passive: false} : false;
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
 
 /**
  * Check if a `element` is visible in the DOM
@@ -37,10 +45,16 @@ const eventCaptureParams =
  * @param  {Element}  element
  * @return {Boolean}
  */
+<<<<<<< HEAD
 export const isHidden = element =>
   element.offsetWidth === 0 ||
   element.offsetHeight === 0 ||
   element.open === false;
+=======
+export const isHidden = (element) => (
+  element.offsetWidth === 0 || element.offsetHeight === 0 || element.open === false
+);
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
 
 /**
  * Get hidden parentNodes of an `element`
@@ -48,7 +62,11 @@ export const isHidden = element =>
  * @param {Element} element
  * @return {Element[]}
  */
+<<<<<<< HEAD
 export const getHiddenParentNodes = element => {
+=======
+export const getHiddenParentNodes = (element) => {
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
   const parents = [];
   let node = element.parentNode;
 
@@ -73,7 +91,11 @@ export const getDimension = (element, key) => {
   let dimension = element[key];
 
   // Used for native `<details>` elements
+<<<<<<< HEAD
   const toggleOpenProperty = element => {
+=======
+  const toggleOpenProperty = (element) => {
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
     if (typeof element.open !== 'undefined') {
       element.open = !element.open;
     }
@@ -86,7 +108,11 @@ export const getDimension = (element, key) => {
         display: hiddenParentNodes[i].style.display,
         height: hiddenParentNodes[i].style.height,
         overflow: hiddenParentNodes[i].style.overflow,
+<<<<<<< HEAD
         visibility: hiddenParentNodes[i].style.visibility,
+=======
+        visibility: hiddenParentNodes[i].style.visibility
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
       });
 
       hiddenParentNodes[i].style.display = 'block';
@@ -103,8 +129,12 @@ export const getDimension = (element, key) => {
       hiddenParentNodes[j].style.display = hiddenParentNodesStyle[j].display;
       hiddenParentNodes[j].style.height = hiddenParentNodesStyle[j].height;
       hiddenParentNodes[j].style.overflow = hiddenParentNodesStyle[j].overflow;
+<<<<<<< HEAD
       hiddenParentNodes[j].style.visibility =
         hiddenParentNodesStyle[j].visibility;
+=======
+      hiddenParentNodes[j].style.visibility = hiddenParentNodesStyle[j].visibility;
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
     }
   }
   return dimension;
@@ -128,8 +158,12 @@ export const setCss = (el, cssObj) => {
  * @param {HTMLElement} elem
  * @param {string} className
  */
+<<<<<<< HEAD
 export const hasClass = (elem, className) =>
   new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+=======
+export const hasClass = (elem, className) => new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
 
 /**
  *
@@ -211,7 +245,11 @@ export const insertAfter = (referenceNode, newNode) =>
  * @param {Function} listener
  */
 export const addEventListeners = (el, events, listener) => {
+<<<<<<< HEAD
   events.forEach(eventName => {
+=======
+  events.forEach((eventName) => {
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
     if (!el[EVENT_LISTENER_LIST]) {
       el[EVENT_LISTENER_LIST] = {};
     }
@@ -219,7 +257,15 @@ export const addEventListeners = (el, events, listener) => {
       el[EVENT_LISTENER_LIST][eventName] = [];
     }
 
+<<<<<<< HEAD
     el.addEventListener(eventName, listener, eventCaptureParams);
+=======
+    el.addEventListener(
+      eventName,
+      listener,
+      eventCaptureParams
+    );
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
     if (el[EVENT_LISTENER_LIST][eventName].indexOf(listener) < 0) {
       el[EVENT_LISTENER_LIST][eventName].push(listener);
     }
@@ -233,6 +279,7 @@ export const addEventListeners = (el, events, listener) => {
  * @param {Function} listener
  */
 export const removeEventListeners = (el, events, listener) => {
+<<<<<<< HEAD
   events.forEach(eventName => {
     let index;
 
@@ -241,6 +288,18 @@ export const removeEventListeners = (el, events, listener) => {
     if (
       el[EVENT_LISTENER_LIST] &&
       el[EVENT_LISTENER_LIST][eventName] &&
+=======
+  events.forEach((eventName) => {
+    let index;
+
+    el.removeEventListener(
+      eventName,
+      listener,
+      false
+    );
+
+    if (el[EVENT_LISTENER_LIST] && el[EVENT_LISTENER_LIST][eventName] &&
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
       (index = el[EVENT_LISTENER_LIST][eventName].indexOf(listener)) > -1
     ) {
       el[EVENT_LISTENER_LIST][eventName].splice(index, 1);
@@ -265,17 +324,25 @@ export const removeAllListenersFromEl = (instance, el) => {
    * @callback listener
    * @this {Object} event name
    */
+<<<<<<< HEAD
   function rm (listener) {
+=======
+  function rm(listener) {
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
     if (listener === instance._startEventListener) {
       this.el.removeEventListener(this.eventName, listener, false);
     }
   }
 
   for (const eventName in el[EVENT_LISTENER_LIST]) {
+<<<<<<< HEAD
     el[EVENT_LISTENER_LIST][eventName].forEach(rm, {
       eventName: eventName,
       el: el,
     });
+=======
+    el[EVENT_LISTENER_LIST][eventName].forEach(rm, {eventName: eventName, el: el});
+>>>>>>> 119d1bd75273c3b7c7cc033721c6962b76e4fa77
   }
 
   el[EVENT_LISTENER_LIST] = {};
