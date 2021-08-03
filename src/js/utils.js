@@ -49,7 +49,9 @@ utils.serializeFormToObject = function (form) {
 utils.convertDataSourceToDbJson = function () {
   const productJson = [];
   for (let key in app.data.products) {
-    productJson.push(Object.assign({ id: key }, app.data.products.products[key]));
+    productJson.push(
+      Object.assign({ id: key }, app.data.products.products[key])
+    );
   }
 
   console.log(JSON.stringify({ product: productJson, order: [] }, null, '  '));
@@ -61,7 +63,9 @@ utils.queryParams = function (params) {
     .join('&');
 };
 utils.numberToHour = function (number) {
-  return (Math.floor(number) % 24) + ':' + (number % 1 * 60 + '').padStart(2, '0');
+  return (
+    (Math.floor(number) % 24) + ':' + ((number % 1) * 60 + '').padStart(2, '0')
+  );
 };
 
 utils.hourToNumber = function (hour) {

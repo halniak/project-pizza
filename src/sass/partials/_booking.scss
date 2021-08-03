@@ -188,6 +188,11 @@
         opacity: 0.4;
       }
     }
+
+    &.selected {
+      color: rgb(122, 24, 122);
+      font-size: 103%;
+    }
   }
 
   [data-table='1'] {

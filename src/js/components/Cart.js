@@ -1,10 +1,10 @@
 import { settings, select, classNames, templates } from './../settings.js';
-import {utils} from './../utils.js';
+import { utils } from './../utils.js';
 import CartProduct from './CartProduct.js';
 
 class Cart {
   // konstruktor tej klasy oczekuje na przekazanie referencji do diva, w którym ten koszyk ma być obecny
-  constructor(element) {
+  constructor (element) {
     const thisCart = this;
 
     thisCart.products = [];
@@ -12,27 +12,29 @@ class Cart {
     thisCart.initActions();
   }
 
-  getElements(element) {
+  getElements (element) {
     const thisCart = this;
 
     thisCart.dom = {};
     thisCart.dom.wrapper = element;
     thisCart.dom.toggleTrigger = element.querySelector(
-      select.cart.toggleTrigger);
-    
+      select.cart.toggleTrigger
+    );
+
     thisCart.dom.productList = element.querySelector(select.cart.productList);
     thisCart.dom.deliveryFee = element.querySelector(select.cart.deliveryFee);
     thisCart.dom.totalNumber = element.querySelector(select.cart.totalNumber);
     thisCart.dom.subtotalPrice = element.querySelector(
-      select.cart.subtotalPrice);
-    
+      select.cart.subtotalPrice
+    );
+
     thisCart.dom.totalPrice = element.querySelectorAll(select.cart.totalPrice);
     thisCart.dom.form = element.querySelector(select.cart.form);
     thisCart.dom.address = thisCart.dom.form.querySelector(select.cart.address);
     thisCart.dom.phone = thisCart.dom.form.querySelector(select.cart.phone);
   }
 
-  initActions() {
+  initActions () {
     const thisCart = this;
 
     thisCart.dom.toggleTrigger.addEventListener('click', function () {
@@ -49,11 +51,11 @@ class Cart {
 
     thisCart.dom.form.addEventListener('submit', function (event) {
       event.preventDefault();
-      thisCart.sendOrder();
+      thisCart.prepareOrder();
     });
   }
 
-  add(menuProduct) {
+  add (menuProduct) {
     const thisCart = this;
 
     /* [DONE] generate HTML of added product */
@@ -71,7 +73,7 @@ class Cart {
     thisCart.update();
   }
 
-  remove(removedProduct) {
+  remove (removedProduct) {
     const thisCart = this;
 
     const indexOfRemovedProduct = thisCart.products.indexOf(removedProduct);
@@ -84,7 +86,7 @@ class Cart {
     thisCart.update();
   }
 
-  update() {
+  update () {
     const thisCart = this;
 
     thisCart.totalNumber = 0;
@@ -112,7 +114,7 @@ class Cart {
     }
   }
 
-  sendOrder() {
+  prepareOrder () {
     const thisCart = this;
     const url = settings.db.url + '/' + settings.db.orders;
 
@@ -128,6 +130,10 @@ class Cart {
       payload.products.push(prod.getData());
     }
 
+    thisCart.send(url, payload);
+  }
+
+  send (url, payload) {
     const options = {
       method: 'POST',
       headers: {
