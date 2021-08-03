@@ -295,7 +295,7 @@ class Booking {
     payload.phone = thisBooking.dom.phone.value;
     payload.address = thisBooking.dom.address.value;
     payload.starters = [];
-    for (let starter of thisBooking.dom.starters) {
+    for (const starter of thisBooking.dom.starters) {
       if (starter.checked) {
         payload.starters.push(starter.value);
       }
