@@ -116,7 +116,6 @@ class Cart {
 
   prepareOrder () {
     const thisCart = this;
-    const url = settings.db.url + '/' + settings.db.orders;
 
     let payload = {};
     payload.address = thisCart.dom.address.value;
@@ -130,19 +129,12 @@ class Cart {
       payload.products.push(prod.getData());
     }
 
-    thisCart.send(url, payload);
-  }
-
-  send (url, payload) {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+    const fetchArgs = {
+      url: settings.db.url + '/' + settings.db.orders,
+      payload: payload,
     };
 
-    fetch(url, options);
+    utils.send(fetchArgs);
   }
 }
 

@@ -3,7 +3,7 @@ import { utils } from './../utils.js';
 import AmountWidget from './AmountWidget.js';
 
 class Product {
-  constructor(id, data) {
+  constructor (id, data) {
     const thisProduct = this;
     thisProduct.id = id;
     thisProduct.data = data;
@@ -15,33 +15,39 @@ class Product {
     thisProduct.processOrder();
   }
 
-  getElements() {
+  getElements () {
     const thisProduct = this;
 
     thisProduct.accordionTrigger = thisProduct.element.querySelector(
-      select.menuProduct.clickable);
+      select.menuProduct.clickable
+    );
 
     thisProduct.form = thisProduct.element.querySelector(
-      select.menuProduct.form);
+      select.menuProduct.form
+    );
 
     thisProduct.formInputs = thisProduct.form.querySelectorAll(
-      select.all.formInputs);
+      select.all.formInputs
+    );
 
     thisProduct.cartButton = thisProduct.element.querySelector(
-      select.menuProduct.cartButton);
+      select.menuProduct.cartButton
+    );
 
     thisProduct.priceElem = thisProduct.element.querySelector(
-      select.menuProduct.priceElem);
+      select.menuProduct.priceElem
+    );
 
     thisProduct.imageWrapper = thisProduct.element.querySelector(
-      select.menuProduct.imageWrapper);
+      select.menuProduct.imageWrapper
+    );
 
     thisProduct.amountWidgetElem = thisProduct.element.querySelector(
-      select.menuProduct.amountWidget);
-
+      select.menuProduct.amountWidget
+    );
   }
 
-  renderInMenu() {
+  renderInMenu () {
     const thisProduct = this;
 
     /* [DONE] generate HTML of single product */
@@ -57,7 +63,7 @@ class Product {
     menuContainer.appendChild(thisProduct.element);
   }
 
-  initAccordion() {
+  initAccordion () {
     const thisProduct = this;
 
     /* [DONE] add event listener to clickable trigger */
@@ -67,7 +73,8 @@ class Product {
 
       /* [DONE] find active elements and remove class active if it is not thisProduct.element */
       const activeProduct = document.querySelector(
-        select.all.menuProductsActive);
+        select.all.menuProductsActive
+      );
 
       if (activeProduct !== null && activeProduct !== thisProduct.element) {
         //console.log('activeProduct: ', activeProduct);
@@ -80,7 +87,7 @@ class Product {
     });
   }
 
-  initOrderForm() {
+  initOrderForm () {
     const thisProduct = this;
     //console.log('initOrderForm');
 
@@ -104,7 +111,7 @@ class Product {
     });
   }
 
-  processOrder() {
+  processOrder () {
     const thisProduct = this;
 
     /* [DONE] convert form to object structure */
@@ -130,7 +137,8 @@ class Product {
 
         /* [DONE] adjust price and product image */
         const optionImage = thisProduct.imageWrapper.querySelector(
-          '.' + paramId + '-' + optionId);
+          '.' + paramId + '-' + optionId
+        );
 
         if (formData[paramId].includes(optionId)) {
           if (optionImage !== null) {
@@ -157,7 +165,7 @@ class Product {
     thisProduct.priceElem.innerHTML = price;
   }
 
-  initAmountWidget() {
+  initAmountWidget () {
     const thisProduct = this;
     thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
 
@@ -169,7 +177,7 @@ class Product {
     });
   }
 
-  addToCart() {
+  addToCart () {
     const thisProduct = this;
 
     const event = new CustomEvent('add-to-cart', {
@@ -182,7 +190,7 @@ class Product {
     thisProduct.element.dispatchEvent(event);
   }
 
-  prepareCartProduct() {
+  prepareCartProduct () {
     const thisProduct = this;
 
     const productSummary = {};
@@ -197,7 +205,7 @@ class Product {
     return productSummary;
   }
 
-  prepareCartProductParams() {
+  prepareCartProductParams () {
     const thisProduct = this;
 
     /* [DONE] convert form to object structure */

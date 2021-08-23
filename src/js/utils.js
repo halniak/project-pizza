@@ -84,6 +84,17 @@ utils.addDays = function (dateStr, days) {
   return dateObj;
 };
 
+utils.send = function (fetchArgs) {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(fetchArgs.payload),
+  };
+  fetch(fetchArgs.url, options);
+};
+
 Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
   return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });

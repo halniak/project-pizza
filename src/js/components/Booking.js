@@ -305,21 +305,9 @@ class Booking {
       url: settings.db.url + '/' + settings.db.booking,
       payload: payload,
     };
-    thisBooking.send(fetchArgs);
 
+    utils.send(fetchArgs);
     thisBooking.makeBooked(payload);
-  }
-
-  send (fetchArgs) {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(fetchArgs.payload),
-    };
-
-    fetch(fetchArgs.url, options);
   }
 }
 
