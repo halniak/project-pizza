@@ -9,10 +9,12 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
-    thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.links = document.querySelectorAll(
+      select.nav.links + ', ' + select.home.bannerLinks
+    );
 
     const idFromHash = window.location.hash.replace('#/', '');
-    let pageMatchingHash = thisApp.pages[0].id;
+    let pageMatchingHash = thisApp.pages[1].id;
 
     for (const page of thisApp.pages) {
       if (page.id == idFromHash) {
@@ -23,8 +25,8 @@ const app = {
 
     thisApp.activatePage(pageMatchingHash);
 
-    for (let navLink of thisApp.navLinks) {
-      navLink.addEventListener('click', function (event) {
+    for (let link of thisApp.links) {
+      link.addEventListener('click', function (event) {
         const thisElement = this;
         event.preventDefault();
 
@@ -47,10 +49,10 @@ const app = {
     }
 
     /* set active class to activated link and remove from non-activated */
-    for (let navLink of thisApp.navLinks) {
-      navLink.classList.toggle(
+    for (let link of thisApp.links) {
+      link.classList.toggle(
         classNames.nav.active,
-        navLink.getAttribute('href') == '#' + pageId
+        link.getAttribute('href') == '#' + pageId
       );
     }
   },
@@ -85,8 +87,6 @@ const app = {
         thisApp.data.products = parsedResponse;
         thisApp.initMenu();
       });
-
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   initCart: function () {
@@ -110,11 +110,11 @@ const app = {
 
   init: function () {
     const thisApp = this;
-    thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
     thisApp.initHome();
     thisApp.initBooking();
+    thisApp.initPages();
   },
 };
 

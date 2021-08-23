@@ -75,6 +75,8 @@ export const select = {
   },
   home: {
     banner: '.banner',
+    bannerLinks: 'a.banner',
+    tileLinks: '.inner-tile a',
   },
   nav: {
     links: '.main-nav a',

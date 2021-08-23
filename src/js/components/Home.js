@@ -12,9 +12,6 @@ class Home {
   render (element) {
     const thisHome = this;
     const generatedHTML = templates.homePage(element);
-    /*     console.log(element);
-    console.log(generatedHTML);
-    console.log(utils.createDOMFromHTML(generatedHTML)); */
 
     thisHome.dom = {};
     thisHome.dom.wrapper = element;
@@ -22,15 +19,23 @@ class Home {
   }
 
   initWidgets () {
+    const thisHome = this;
     const element = document.querySelector(select.widgets.carousel);
+
     new Flickity(element, {
       // options
-      //cellAlign: 'left',
-      //contain: true,
       wrapAround: true,
-      autoplay: true,
+      autoPlay: 2500,
+      prevNextButtons: false,
       imagesLoaded: true,
     });
+
+    thisHome.tileLinks = document.querySelectorAll(select.home.tileLinks);
+    for (let tileLink of thisHome.tileLinks) {
+      tileLink.addEventListener('click', function (event) {
+        event.preventDefault();
+      });
+    }
   }
 }
 

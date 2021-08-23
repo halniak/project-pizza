@@ -59,105 +59,86 @@
 }
 
 .main-carousel {
-  background: #eee;
-  margin: $base-size * 8 -10px $base-size * 4;
-  //height: 200px;
-}
+  margin: $base-size * 8 -10px;
 
-.carousel-cell {
-  /*   display: flex;
-  flex-wrap: wrap; */
-  width: 100%;
-  height: 20vh;
-  padding: 0;
-}
-
-.carousel-img {
-  //flex: 1 0 25%;
-  img {
-    object-fit: cover;
+  .carousel-cell {
     width: 100%;
-    height: 100%;
-    position: absolute;
+    height: 20vh; //when height: 100% flickity-viewport=0
+    padding: 0;
+    margin: 0 $base-size;
+
+    .carousel-img {
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        //position: absolute;
+      }
+    }
+
+    .carousel-post {
+      h3 {
+        font-size: 150%;
+      }
+    }
   }
-}
 
-.carousel-img:after {
-  content: '';
-  display: block;
-  //padding-bottom: 50%;
-}
-
-.flickity-page-dots {
-  bottom: -50px;
-}
-
-.box-container {
-  border: 2px solid black;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.box {
-  flex: 1 0 25%; //calc(25% - 10px);
-  margin: 5px;
-  background: #e9d2ff;
-}
-
-.box:after {
-  content: '';
-  display: block;
-  padding-bottom: 100%;
+  .flickity-page-dots {
+    bottom: -3 * $base-size;
+  }
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
-}
 
-.gallery-tile {
-  padding: 1%;
-  display: flex;
+  .gallery-tile {
+    padding: 1%;
+    display: flex;
+    overflow: hidden;
 
-  img {
-    border-radius: $radius;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    max-width: 100%;
-    display: block;
+    img {
+      border-radius: $radius;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      max-width: 100%;
+      display: block;
+    }
+
+    .inner-tile {
+      display: flex;
+      //flex-direction: row;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      a {
+        //justify-content: center;
+        font-size: 200%;
+        color: #fff;
+        margin: 1vmin;
+        opacity: 0;
+      }
+
+      a:hover {
+        color: $color-main;
+        transition: $transition;
+        opacity: 1;
+      }
+    }
   }
 
-  .inner-tile {
-    display: flex;
-    //flex-direction: row;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  .gallery-tile:hover {
+    img {
+      filter: brightness(50%);
+      transition: $transition;
+    }
 
     a {
-      //justify-content: center;
-      font-size: 200%;
-      color: #fff;
-      margin: 1vmin;
-      opacity: 0;
+      opacity: 0.5;
     }
-
-    a:hover {
-      color: $color-main;
-      transition: $transition;
-      opacity: 1;
-    }
-  }
-}
-
-.gallery-tile:hover {
-  img {
-    filter: brightness(50%);
-    transition: $transition;
-  }
-
-  a {
-    opacity: 0.5;
   }
 }
